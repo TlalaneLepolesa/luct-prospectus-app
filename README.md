@@ -48,3 +48,27 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+
+# LUCT Prospectus App 🎓
+
+A professional mobile application developed for the **Limkokwing University of Creative Technology (Lesotho)**. This app serves as a digital prospectus for prospective students to explore faculties and courses.
+
+## ✨ Features
+* **Faculty Explorer**: View 5 major faculties including FICT, FBIT, FCDM, FCM, and FABE.
+* **25 Course Catalog**: Detailed information for 25 different programs.
+* **YouTube Integration**: Motivational and elaborative video clips for every course to help students visualize their future.
+* **Student Rating System**: A custom interactive rating component (Scale: 0-6) matching the university's requirements.
+* **Black & Gold Theme**: A premium UI design reflecting Limkokwing’s official branding.
+
+## 🛠️ Tech Stack
+* **Framework**: React Native with Expo
+* **Navigation**: Expo Router (File-based)
+* **Icons**: Expo Vector Icons (MaterialIcons)
+* **Video**: React-Native-Youtube-Iframe
+* **Styling**: StyleSheet API
+
+## 🚀 How to Run
+1. Clone this repository.
+2. Run `npm install` or `npx expo install`.
+3. Start the project using `npx expo start`.
