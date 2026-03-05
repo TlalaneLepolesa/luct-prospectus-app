@@ -1,102 +1,146 @@
 import React from "react";
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, Image } from "react-native";
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, ImageBackground } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const facultyData = {
-    FICT: [
-        { id: "se", name: "Degree in Software Engineering", videoId: "S7mID-f16Y4", img: "", desc: "Build the future with code and multimedia." },
-        { id: "bit", name: "Degree in Business IT", videoId: "2v62_7599v8", img: "", desc: "Merge business strategy with tech." },
-        { id: "it", name: "Degree in Information Technology", videoId: "fK_Z-Sj9_Wk", img: "", desc: "Core networking and systems security." },
-        { id: "dmse", name: "Dip. Multimedia Software Eng", videoId: "3vVnd7_Nl_Q", img: "", desc: "Foundation in creative coding." },
-        { id: "dit", name: "Diploma in IT", videoId: "5_6v-p-R3O8", img: "", desc: "Entry-level professional IT skills." },
-    ],
-    FBIT: [
-        { id: "intb", name: "Degree in International Business", videoId: "m_GstY2X5S8", img: "", desc: "Leadership in global markets." },
-        { id: "ent", name: "Degree in Entrepreneurship", videoId: "9IuQ_v_H6Y4", img: "", desc: "Start your own innovative business." },
-        { id: "hrm", name: "Degree in HR Management", videoId: "T7a0YI8C0p0", img: "", desc: "Managing talent in modern industry." },
-        { id: "dbm", name: "Dip. Business Management", videoId: "m_GstY2X5S8", img: "", desc: "Core business leadership basics." },
-        { id: "dmkt", name: "Diploma in Marketing", videoId: "GaM1X7_4F_0", img: "", desc: "Strategic branding and digital ads." },
-    ],
-    FCDM: [
-        { id: "pc", name: "Degree in Prof. Communication", videoId: "QpB_z7998u8", img: "", desc: "Expertise in corporate messaging." },
-        { id: "bj", name: "Degree in Broadcasting", videoId: "NToiP26mJzU", img: "", desc: "TV and Radio production career." },
-        { id: "pr", name: "Dip. Public Relations", videoId: "QpB_z7998u8", img: "", desc: "Managing brand reputation." },
-        { id: "djm", name: "Dip. Journalism & Media", videoId: "S32mD_R6X10", img: "", desc: "News reporting in the digital age." },
-        { id: "dtfp", name: "Dip. Film Production", videoId: "fK_Z-Sj9_Wk", img: "", desc: "Directing and digital storytelling." },
-    ],
-    FCM: [
-        { id: "gd", name: "Degree in Graphic Design", videoId: "1pM6uD8XInM", img: "", desc: "Visual branding and illustration." },
-        { id: "ani", name: "Degree in Animation", videoId: "0f-2v-3W2wE", img: "", desc: "3D characters and motion graphics." },
-        { id: "games", name: "Degree in Games Design", videoId: "S7mID-f16Y4", img: "", desc: "Building interactive digital worlds." },
-        { id: "id_dip", name: "Dip. Interior Design", videoId: "1pM6uD8XInM", img: "", desc: "Creative space and home planning." },
-        { id: "fad", name: "Dip. Fashion Design", videoId: "0f-2v-3W2wE", img: "", desc: "Global fashion and textile trends." },
-    ],
-    FABE: [
-        { id: "arch", name: "Degree in Architecture", videoId: "fK_Z-Sj9_Wk", img: "", desc: "Designing sustainable future cities." },
-        { id: "qs", name: "Degree in Quantity Surveying", videoId: "m_GstY2X5S8", img: "", desc: "Managing construction costs." },
-        { id: "id_deg", name: "Degree in Interior Architecture", videoId: "fK_Z-Sj9_Wk", img: "", desc: "Advanced structural aesthetics." },
-        { id: "ud", name: "Dip. Urban Design", videoId: "fK_Z-Sj9_Wk", img: "", desc: "Planning efficient city spaces." },
-        { id: "cm", name: "Dip. Construction Mgmt", videoId: "m_GstY2X5S8", img: "", desc: "Managing technical building sites." },
-    ],
+  FICT: [
+    { 
+      id: "se", name: "Software Engineering", 
+      videoId: "AlqTPomaSLA", // Added Video ID
+      img: "https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg", // Added Image
+      about: "Architect the digital world by building reliable and efficient systems.", 
+      requirements: "LGCSE: Credit in Maths, English, and 2 Science subjects." 
+    },
+    { 
+      id: "it", name: "Information Technology", 
+      videoId: "XZrckLYqdys", 
+      img: "https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg",
+      about: "Master the systems that keep the modern world connected.", 
+      requirements: "LGCSE: Pass in Maths, English, and 3 other subjects." 
+    }
+  ],
+  FBIT: [
+    { 
+      id: "hrm", name: "HR Management", 
+      videoId: "bMItqoVyQFE", 
+      img: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg",
+      about: "Empower the heartbeat of every organization: its people.", 
+      requirements: "LGCSE: Credit in English, Pass in Maths." 
+    },
+    { 
+      id: "bm", name: "Business Management", 
+      videoId: "a-uPznyA7Hw", 
+      img: "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg",
+      about: "Lead the next generation of global enterprises.", 
+      requirements: "LGCSE: Pass in English, Maths, and 3 others." 
+    }
+  ],
+  FCDM: [
+    { 
+      id: "pr", name: "Public Relations", 
+      videoId: "VejDCJ9_wuk", 
+      img: "https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg",
+      about: "Shape the narratives that define global brands.", 
+      requirements: "LGCSE: Credit in English and 4 other subjects." 
+    }
+  ],
+  FCM: [
+    { 
+      id: "gd", name: "Graphic Design", 
+      videoId: "https://www.facebook.com/LimkokwingLesotho/videos/926417236407611/", 
+      img: "https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg",
+      about: "Turn imagination into visual reality.", 
+      requirements: "LGCSE: Pass in English and Portfolio Submission." 
+    }
+  ],
+  FABE: [
+    { 
+      id: "arch", name: "Architecture", 
+      videoId: "https://www.facebook.com/reel/1924425818467377/", 
+      img: "https://images.pexels.com/photos/434645/pexels-photo-434645.jpeg",
+      about: "Design the spaces where humanity lives and works.", 
+      requirements: "LGCSE: Credit in Maths and Physics." 
+    }
+  ]
 };
 
-export default function CourseList() {
-    const { id } = useLocalSearchParams();
-    const router = useRouter();
-    const courses = facultyData[id] || facultyData["FICT"];
+export default function FacultyDetail() {
+  const { id } = useLocalSearchParams();
+  const router = useRouter();
+  const courses = facultyData[id] || [];
 
-    return ( <
-        View style = { styles.container } >
-        <
-        Text style = { styles.title } > { id }
-        Programs < /Text> <
-        FlatList data = { courses }
-        keyExtractor = {
-            (item) => item.id }
-        renderItem = {
-            ({ item }) => ( <
-                TouchableOpacity style = { styles.card }
-                onPress = {
-                    () => router.push({
-                        pathname: /course/$ { item.id },
-                        params: {
-                            name: item.name,
-                            desc: item.desc,
-                            img: item.img,
-                            videoId: item.videoId
-                        }
-                    })
-                } >
-                <
-                Image source = {
-                    { uri: item.img } }
-                style = { styles.thumb }
-                /> <
-                View style = { styles.info } >
-                <
-                Text style = { styles.name } > { item.name } < /Text> <
-                Text style = { styles.descText }
-                numberOfLines = { 2 } > { item.desc } < /Text> <
-                /View> <
-                MaterialIcons name = "play-circle-filled"
-                size = { 28 }
-                color = "#FFD700" / >
-                <
-                /TouchableOpacity>
-            )
-        }
-        /> <
-        /View>
-    );
+  return (
+    <View style={styles.container}>
+      <ImageBackground 
+        source={require('../../assets/images/grad_bg.jpg')} 
+        style={StyleSheet.absoluteFill}
+        blurRadius={3}
+      >
+        <View style={styles.darkOverlay} />
+      </ImageBackground>
+
+      <View style={styles.content}>
+        <View style={styles.header}>
+            <Text style={styles.title}>{id}</Text>
+            <Text style={styles.subtitle}>ACADEMIC PROGRAMS</Text>
+        </View>
+
+        <FlatList
+          data={courses}
+          keyExtractor={(item) => item.id}
+          contentContainerStyle={{ paddingBottom: 40 }}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={styles.glassCard}
+              onPress={() => router.push({
+                pathname: `/course/${item.id}`,
+                params: { 
+                  name: item.name, 
+                  about: item.about, 
+                  requirements: item.requirements,
+                  img: item.img,        // FIXED: Added this
+                  videoId: item.videoId, // FIXED: Added this
+                  id: item.id 
+                }
+              })}
+            >
+              <View style={styles.cardHeader}>
+                <Text style={styles.courseName}>{item.name}</Text>
+                <MaterialCommunityIcons name="chevron-right" size={24} color="#FFD700" />
+              </View>
+              <Text style={styles.courseAbout} numberOfLines={2}>{item.about}</Text>
+              
+              <View style={styles.footer}>
+                <MaterialCommunityIcons name="school-outline" size={14} color="#FFD700" />
+                <Text style={styles.footerText}>View Entry Requirements</Text>
+              </View>
+            </TouchableOpacity>
+          )}
+        />
+      </View>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: '#fff', padding: 20 },
-    title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20, color: '#000' },
-    card: { backgroundColor: '#000', padding: 15, borderRadius: 15, flexDirection: 'row', alignItems: 'center', marginBottom: 15 },
-    thumb: { width: 60, height: 60, borderRadius: 10, marginRight: 15 },
-    info: { flex: 1 },
-    name: { color: '#FFD700', fontSize: 14, fontWeight: 'bold' },
-    descText: { color: '#fff', fontSize: 11, opacity: 0.8 }
+  container: { flex: 1, backgroundColor: "#000" },
+  darkOverlay: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.85)' },
+  content: { flex: 1, paddingHorizontal: 20 },
+  header: { marginTop: 60, marginBottom: 30, alignItems: 'center' },
+  title: { fontSize: 40, fontWeight: "900", color: "#fff", letterSpacing: 2 },
+  subtitle: { fontSize: 12, color: "#FFD700", fontWeight: "bold", letterSpacing: 4, marginTop: -5 },
+  glassCard: { 
+    backgroundColor: 'rgba(255,255,255,0.08)', 
+    padding: 20, 
+    borderRadius: 25, 
+    marginBottom: 15, 
+    borderWidth: 1, 
+    borderColor: 'rgba(255,255,255,0.1)' 
+  },
+  cardHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 },
+  courseName: { color: "#fff", fontSize: 18, fontWeight: "bold" },
+  courseAbout: { color: "rgba(255,255,255,0.6)", fontSize: 14, lineHeight: 20, marginBottom: 15 },
+  footer: { flexDirection: 'row', alignItems: 'center', borderTopWidth: 1, borderTopColor: 'rgba(255,255,255,0.1)', paddingTop: 10 },
+  footerText: { color: "#FFD700", fontSize: 11, fontWeight: "bold", marginLeft: 8, textTransform: 'uppercase' }
 });

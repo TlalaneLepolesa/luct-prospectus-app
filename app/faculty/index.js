@@ -1,52 +1,117 @@
-import { View, Text, FlatList, TouchableOpacity, StyleSheet } from "react-native";
+import { FontAwesome5, MaterialIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import { useState } from "react";
+import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-const faculties = [
-    { id: "FICT", name: "Information & Communication Technology" },
-    { id: "FBIT", name: "Business Management & Globalization" },
-    { id: "FCM", name: "Creative Multimedia" },
-    { id: "FCDM", name: "Communication, Media & Broadcasting" },
-    { id: "FABE", name: "Architecture & Built Environment" },
-];
+export default function Home() {
+  const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState("");
 
-export default function FacultyList() {
-    const router = useRouter();
+  const menuItems = [
+    { id: "FICT", name: "Information Tech", icon: "laptop-code", color: "#000" },
+    { id: "FBIT", name: "Business & IT", icon: "chart-line", color: "#000" },
+    { id: "FCDM", name: "Communication & Media", icon: "broadcast-tower", color: "#000" },
+    { id: "FCM", name: "Creative Multimedia", icon: "palette", color: "#000" },
+    { id: "FABE", name: "Built Environment", icon: "building", color: "#000" },
+  ];
 
-    return ( <
-        View style = { styles.container } >
-        <
-        Text style = { styles.header } > Our Faculties < /Text> <
-        FlatList data = { faculties }
-        keyExtractor = {
-            (item) => item.id }
-        renderItem = {
-            ({ item }) => ( <
-                TouchableOpacity style = { styles.card }
-                onPress = {
-                    () => router.push(`/faculty/${item.id}`) } >
-                <
-                Text style = { styles.name } > { item.name } < /Text> <
-                Text style = { styles.viewText } > VIEW COURSES < /Text> <
-                /TouchableOpacity>
-            )
-        }
-        /> <
-        /View>
-    );
+  return (
+    <ScrollView style={styles.container}>
+      {/* Branding Header */}
+      <View style={styles.brandBox}>
+        <Text style={styles.brandText}>LIMKOKWING</Text>
+        <Text style={styles.subBrandText}>UNIVERSITY LESOTHO</Text>
+      </View>
+
+      {/* Search Bar */}
+      <View style={styles.searchContainer}>
+        <MaterialIcons name="search" size={24} color="#888" />
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search for a program..."
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+        />
+      </View>
+
+      <Text style={styles.sectionTitle}>Explore Faculties</Text>
+
+      {/* Faculty Grid */}
+      <View style={styles.grid}>
+        {menuItems.map((item) => (
+          <TouchableOpacity 
+            key={item.id} 
+            style={styles.gridItem}
+            onPress={() => router.push(`/faculty/${item.id}`)}
+          >
+            <FontAwesome5 name={item.icon} size={30} color={item.color} />
+            <Text style={styles.gridText}>{item.name}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      {/* Career Quiz Banner */}
+      <TouchableOpacity 
+        style={styles.quizBanner}
+        onPress={() => router.push("/quiz")}
+      >
+        <View style={styles.quizContent}>
+          <MaterialIcons name="stars" size={40} color="#000" />
+          <View style={{ marginLeft: 15 }}>
+            <Text style={styles.quizTitle}>Not sure what to study?</Text>
+            <Text style={styles.quizSub}>Take the Career Match Quiz</Text>
+          </View>
+        </View>
+        <MaterialIcons name="chevron-right" size={30} color="#000" />
+      </TouchableOpacity>
+
+      {/* Footer */}
+      <View style={styles.footerInfo}>
+        <Text style={styles.footerText}>© 2026 Limkokwing University Lesotho</Text>
+      </View>
+    </ScrollView>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: '#fff', padding: 20 },
-    header: { fontSize: 22, fontWeight: 'bold', marginBottom: 20 },
-    card: {
-        backgroundColor: '#000',
-        padding: 25,
-        borderRadius: 15,
-        marginVertical: 10,
-        justifyContent: 'space-between',
-        flexDirection: 'row',
-        alignItems: 'center'
-    },
-    name: { fontSize: 14, fontWeight: 'bold', color: '#FFD700', flex: 1 },
-    viewText: { fontSize: 10, color: '#FFF', fontWeight: 'bold', marginLeft: 10 }
+  container: { flex: 1, backgroundColor: "#fff" },
+  brandBox: { backgroundColor: "#000", padding: 40, alignItems: "center" },
+  brandText: { color: "#fff", fontSize: 28, fontWeight: "bold", letterSpacing: 2 },
+  subBrandText: { color: "#FFD700", fontSize: 14, marginTop: 5 },
+  searchContainer: { 
+    flexDirection: "row", 
+    backgroundColor: "#f2f2f2", 
+    margin: 20, 
+    padding: 12, 
+    borderRadius: 10, 
+    alignItems: "center" 
+  },
+  searchInput: { flex: 1, marginLeft: 10, fontSize: 16 },
+  sectionTitle: { fontSize: 20, fontWeight: "bold", marginLeft: 20, marginBottom: 15 },
+  grid: { flexDirection: "row", flexWrap: "wrap", padding: 10, justifyContent: "space-between" },
+  gridItem: { 
+    width: "45%", 
+    backgroundColor: "#fff", 
+    padding: 20, 
+    margin: "2.5%", 
+    borderRadius: 15, 
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#eee"
+  },
+  gridText: { marginTop: 10, fontWeight: "600", textAlign: "center", fontSize: 12 },
+  quizBanner: { 
+    backgroundColor: "#FFD700", 
+    margin: 20, 
+    padding: 20, 
+    borderRadius: 15, 
+    flexDirection: "row", 
+    alignItems: "center", 
+    justifyContent: "space-between" 
+  },
+  quizContent: { flexDirection: "row", alignItems: "center" },
+  quizTitle: { fontWeight: "bold", fontSize: 16 },
+  quizSub: { fontSize: 13, opacity: 0.8 },
+  footerInfo: { padding: 30, alignItems: "center" },
+  footerText: { color: "#888", fontSize: 12 }
 });
